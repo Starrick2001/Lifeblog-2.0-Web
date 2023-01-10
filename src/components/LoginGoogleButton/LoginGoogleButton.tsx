@@ -16,7 +16,6 @@ export function LoginGoogleButton() {
 		const reqBody: LoginSuccessRequest = jwtDecode(
 			credentialResponse.credential as string
 		);
-		console.log(reqBody);
 
 		axios
 			.post(API_URL + "/auth", {
