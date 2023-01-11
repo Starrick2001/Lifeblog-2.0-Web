@@ -1,32 +1,20 @@
 import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
-import jwtDecode from "jwt-decode";
+import { useDispatch } from "react-redux";
+import { setAuthToken } from "../../redux/slices/authTokenSlice";
 import { API_URL } from "../../utils/utils";
 
-type LoginSuccessRequest = {
-	email: string;
-	name: string;
-	given_name: string;
-	family_name: string;
-	picture: string;
-};
 
 export function LoginGoogleButton() {
-	const loginSuccessHandler = (credentialResponse: CredentialResponse) => {
-		const reqBody: LoginSuccessRequest = jwtDecode(
-			credentialResponse.credential as string
-		);
+	const dispatch = useDispatch();
 
+	const loginSuccessHandler = (credentialResponse: CredentialResponse) => {
 		axios
 			.post(API_URL + "/auth", {
-				email: reqBody.email,
-				name: reqBody.name,
-				givenName: reqBody.given_name,
-				familyName: reqBody.family_name,
-				picture: reqBody.picture
+				credential: credentialResponse.credential
 			})
 			.then((result) => {
-				console.log(result);
+				dispatch(setAuthToken(result.data.accessToken))
 			});
 	};
 

@@ -1,9 +1,15 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/rootReducer";
+import { setAuthToken } from "../../redux/slices/authTokenSlice";
 import { LoginGoogleButton } from "../LoginGoogleButton/LoginGoogleButton";
 
 export function Navbar() {
 	const authToken = useSelector((state: RootState) => state.authToken);
+	const dispatch = useDispatch();
+
+	const logoutHandler = () => {
+		dispatch(setAuthToken(undefined));
+	};
 
 	return (
 		<header className="z-40 items-center w-full h-16 bg-white shadow-lg dark:bg-gray-700 rounded-2xl">
@@ -42,16 +48,16 @@ export function Navbar() {
 						</div>
 					</div>
 					<div className="relative flex items-center justify-end w-1/4 p-1 ml-5 mr-4 sm:mr-0 sm:right-auto">
-						{authToken ? (
-							<LoginGoogleButton />
-						) : (
-							<a href="/" className="relative block">
+						{authToken.accessToken ? (
+							<button className="relative block" onClick={logoutHandler}>
 								<img
 									alt="profil"
 									src="/images/person/1.jpg"
 									className="mx-auto object-cover rounded-full h-10 w-10 "
 								/>
-							</a>
+							</button>
+						) : (
+							<LoginGoogleButton />
 						)}
 					</div>
 				</div>

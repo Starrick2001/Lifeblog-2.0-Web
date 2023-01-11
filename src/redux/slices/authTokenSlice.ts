@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type AuthTokenState = {
 	accessToken?: string;
-	refreshToken?: string;
 };
 
 let initialState: AuthTokenState = {};
@@ -11,9 +10,12 @@ const authTokenSlice = createSlice({
 	name: "authToken",
 	initialState,
 	reducers: {
-		setAuthToken(state, action: PayloadAction<AuthTokenState>) {
-			state.accessToken = action.payload.accessToken;
-			state.refreshToken = action.payload.refreshToken;
+		setAuthToken(state, action: PayloadAction<string | undefined>) {
+			const accessToken = action.payload;
+
+			state.accessToken = accessToken;
+			if (accessToken) localStorage.setItem("accessToken", accessToken);
+			else localStorage.removeItem("accessToken");
 		}
 	}
 });
