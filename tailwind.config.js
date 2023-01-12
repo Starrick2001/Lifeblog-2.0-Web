@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-	content: ["./src/**/*.{js,jsx,ts,tsx}"],
 	important: true,
 	// Active dark mode on class basis
 	darkMode: "class",
@@ -8,10 +7,8 @@ module.exports = {
 		locales: ["en-US"],
 		defaultLocale: "en-US"
 	},
-	purge: {
-		content: ["./src/routes/**/*.tsx", "./src/components/**/*.tsx"]
-		// These options are passed through directly to PurgeCSS
-	},
+	content: ["./src/routes/**/*.tsx", "./src/components/**/*.tsx"],
+	// These options are passed through directly to PurgeCSS
 	theme: {
 		extend: {
 			backgroundImage: (theme) => ({
