@@ -9,7 +9,7 @@ module.exports = {
 		defaultLocale: "en-US"
 	},
 	purge: {
-		content: ["./src/pages/**/*.tsx", "./src/components/**/*.tsx"]
+		content: ["./src/routes/**/*.tsx", "./src/components/**/*.tsx"]
 		// These options are passed through directly to PurgeCSS
 	},
 	theme: {
