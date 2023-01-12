@@ -6,6 +6,9 @@ type AuthTokenState = {
 
 let initialState: AuthTokenState = {};
 
+if (localStorage.getItem("accessToken"))
+	initialState.accessToken = localStorage.getItem("accessToken") as string;
+
 const authTokenSlice = createSlice({
 	name: "authToken",
 	initialState,
