@@ -1,46 +1,25 @@
 import { Menu, Transition } from "@headlessui/react";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootState } from "../../redux/rootReducer";
 import { setAuthToken } from "../../redux/slices/authTokenSlice";
-import { GetUserDataFromAccessToken } from "../../services/user.service";
+import { setUserData } from "../../redux/slices/userDataSlice";
 import { classNames } from "../../utils/utils";
 import { LoginGoogleButton } from "../LoginGoogleButton/LoginGoogleButton";
 
-interface UserData {
-	email: string;
-	name: string;
-	familyName: string;
-	givenName: string;
-	picture: string;
-}
-
 export function Navbar() {
-	const authToken = useSelector((state: RootState) => state.authToken);
 	const dispatch = useDispatch();
-	const [userData, setUserData] = useState<UserData>();
+	const userData = useSelector((state: RootState) => state.userData.userData);
 
 	const signoutHandler = () => {
 		dispatch(setAuthToken(undefined));
+		dispatch(setUserData(undefined));
 	};
 
-	useEffect(() => {
-		if (authToken.accessToken) {
-			const userData: any = GetUserDataFromAccessToken(authToken.accessToken);
-			setUserData({
-				email: userData.email,
-				familyName: userData.familyName, 
-				givenName: userData.givenName,
-				name: userData.name,
-				picture: userData.picture
-			});
-		} else setUserData(undefined);
-	}, [authToken.accessToken]);
-
 	return (
-		<header className="z-40 items-center w-full h-16 bg-white shadow-lg dark:bg-gray-700 rounded-2xl">
-			<div className="relative z-20 flex flex-col justify-center h-full px-3 mx-auto flex-center">
+		<header className="z-40 items-center h-16 bg-white shadow-lg dark:bg-gray-700 rounded-2xl m-4">
+			<div className="relative z-20 flex flex-col justify-center h-full px-4 mx-auto flex-center">
 				<div className="relative flex items-center w-full pl-1 lg:max-w-68 sm:pr-2 sm:ml-0">
 					<div className="container relative left-0 z-50 flex w-3/4 h-auto h-full">
 						<div className="relative flex items-center w-full h-full lg:w-64 group">
@@ -75,10 +54,10 @@ export function Navbar() {
 						</div>
 					</div>
 					<div className="relative flex items-center justify-end w-1/4 p-1 ml-5 mr-4 sm:mr-0 sm:right-auto">
-						<Menu as="div" className="relative inline-block text-left">
-							<div>
-								<Menu.Button>
-									{userData ? (
+						{userData ? (
+							<Menu as="div" className="relative inline-block text-left">
+								<div>
+									<Menu.Button>
 										<button className="relative block">
 											<img
 												alt="profil"
@@ -86,58 +65,58 @@ export function Navbar() {
 												className="mx-auto object-cover rounded-full h-10 w-10 "
 											/>
 										</button>
-									) : (
-										<LoginGoogleButton />
-									)}
-								</Menu.Button>
-							</div>
+									</Menu.Button>
+								</div>
 
-							<Transition
-								as={Fragment}
-								enter="transition ease-out duration-100"
-								enterFrom="transform opacity-0 scale-95"
-								enterTo="transform opacity-100 scale-100"
-								leave="transition ease-in duration-75"
-								leaveFrom="transform opacity-100 scale-100"
-								leaveTo="transform opacity-0 scale-95"
-							>
-								<Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-									<div className="py-1">
-										<Menu.Item>
-											{({ active }) => (
-												<Link
-												to='/profile'
-													className={classNames(
-														active
-															? "bg-gray-100 text-gray-900"
-															: "text-gray-700",
-														"block px-4 py-2 text-sm w-full text-left"
-													)}
-												>
-													Profile
-												</Link>
-											)}
-										</Menu.Item>
-										<Menu.Item>
-											{({ active }) => (
-												<button
-													onClick={signoutHandler}
-													type="submit"
-													className={classNames(
-														active
-															? "bg-gray-100 text-gray-900"
-															: "text-gray-700",
-														"block w-full px-4 py-2 text-left text-sm"
-													)}
-												>
-													Sign out
-												</button>
-											)}
-										</Menu.Item>
-									</div>
-								</Menu.Items>
-							</Transition>
-						</Menu>
+								<Transition
+									as={Fragment}
+									enter="transition ease-out duration-100"
+									enterFrom="transform opacity-0 scale-95"
+									enterTo="transform opacity-100 scale-100"
+									leave="transition ease-in duration-75"
+									leaveFrom="transform opacity-100 scale-100"
+									leaveTo="transform opacity-0 scale-95"
+								>
+									<Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+										<div className="py-1">
+											<Menu.Item>
+												{({ active }) => (
+													<Link
+														to="/profile"
+														className={classNames(
+															active
+																? "bg-gray-100 text-gray-900"
+																: "text-gray-700",
+															"block px-4 py-2 text-sm w-full text-left"
+														)}
+													>
+														Profile
+													</Link>
+												)}
+											</Menu.Item>
+											<Menu.Item>
+												{({ active }) => (
+													<button
+														onClick={signoutHandler}
+														type="submit"
+														className={classNames(
+															active
+																? "bg-gray-100 text-gray-900"
+																: "text-gray-700",
+															"block w-full px-4 py-2 text-left text-sm"
+														)}
+													>
+														Sign out
+													</button>
+												)}
+											</Menu.Item>
+										</div>
+									</Menu.Items>
+								</Transition>
+							</Menu>
+						) : (
+							<LoginGoogleButton />
+						)}
 					</div>
 				</div>
 			</div>
