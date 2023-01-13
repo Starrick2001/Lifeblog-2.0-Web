@@ -4,10 +4,11 @@ export function classNames(...classes: string[]) {
 	return classes.filter(Boolean).join(" ");
 }
 
-export interface IUserData {
-	email?: string;
-	name?: string;
-	familyName?: string;
-	givenName?: string;
-	picture?: string;
+export interface IUser {
+	id: string;
+	email: string;
+	name: string;
+	familyName: string;
+	givenName: string;
+	picture: string;
 }
