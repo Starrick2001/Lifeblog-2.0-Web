@@ -1,11 +1,12 @@
 import { useSelector } from "react-redux";
+import { EditProfileDialog } from "../../components/EditProfileDialog/EditProfileDialog";
 import { RootState } from "../../redux/rootReducer";
 
 export function Profile() {
 	const userData = useSelector((state: RootState) => state.userData.userData);
 
 	return (
-		<div className="container flex justify-center my-4 mx-auto">
+		<div className="container flex justify-center my-8 mx-auto">
 			<div className="bg-white shadow-lg rounded-2xl w-80 dark:bg-gray-800">
 				<img
 					alt="profile"
@@ -23,9 +24,7 @@ export function Profile() {
 					<p className="mt-2 text-xl font-medium text-gray-800 dark:text-white">
 						{userData?.name}
 					</p>
-					<p className="p-2 px-4 text-xs text-white bg-pink-500 rounded-full">
-						Professional
-					</p>
+					<EditProfileDialog />
 					<div className="w-full p-2 mt-4 rounded-lg">
 						<div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-200">
 							<p className="flex flex-col">
