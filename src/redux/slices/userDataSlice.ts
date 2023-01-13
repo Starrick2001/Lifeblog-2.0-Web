@@ -1,34 +1,30 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { GetUserDataFromAccessToken } from "../../services/user.service";
-import { IUserData } from "../../utils/utils";
+import { IUser } from "../../utils/utils";
 
 type UserDataState = {
-	userData?: IUserData;
+	userData?: IUser;
 };
 
 let initialState: UserDataState = {};
 
-if (localStorage.getItem("accessToken")) {
-	const accessToken = localStorage.getItem("accessToken") as string;
-	const userData: any = GetUserDataFromAccessToken(accessToken);
-	initialState.userData = {
-		email: userData.email,
-		familyName: userData.familyName,
-		givenName: userData.givenName,
-		name: userData.name,
-		picture: userData.picture
-	};
+if (localStorage.getItem("userData")) {
+	const userData: IUser = JSON.parse(
+		localStorage.getItem("userData") as string
+	);
+	initialState.userData = userData;
 }
 
 const userDataSlice = createSlice({
 	name: "userData",
 	initialState,
 	reducers: {
-		setUserData(state, action: PayloadAction<IUserData | undefined>) {
+		setUserData(state, action: PayloadAction<IUser | undefined>) {
 			if (action.payload) {
-				const { email, name, familyName, givenName, picture } = action.payload;
+				const { id, email, name, familyName, givenName, picture } =
+					action.payload;
 
 				state.userData = {
+					id,
 					email,
 					name,
 					familyName,

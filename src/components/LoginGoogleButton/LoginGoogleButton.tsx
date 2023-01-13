@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { setAuthToken } from "../../redux/slices/authTokenSlice";
 import { setUserData } from "../../redux/slices/userDataSlice";
 import { GetUserDataFromAccessToken } from "../../services/user.service";
-import { API_URL, IUserData } from "../../utils/utils";
+import { API_URL } from "../../utils/utils";
 
 export function LoginGoogleButton() {
 	const dispatch = useDispatch();
@@ -14,19 +14,9 @@ export function LoginGoogleButton() {
 			.post(API_URL + "/auth", {
 				credential: credentialResponse.credential
 			})
-			.then((result) => {
+			.then(async (result) => {
 				dispatch(setAuthToken(result.data.accessToken));
-				const resultData: any = GetUserDataFromAccessToken(
-					result.data.accessToken
-				);
-				const userData: IUserData = {
-					email: resultData.email,
-					familyName: resultData.familyName,
-					givenName: resultData.givenName,
-					name: resultData.name,
-					picture: resultData.picture
-				};
-				dispatch(setUserData(userData));
+				dispatch(setUserData(await GetUserDataFromAccessToken()));
 			});
 	};
 

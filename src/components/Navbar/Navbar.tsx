@@ -18,10 +18,15 @@ export function Navbar() {
 	};
 
 	return (
-		<header className="z-40 items-center h-16 bg-white shadow-lg dark:bg-gray-700 rounded-2xl m-4">
-			<div className="relative z-20 flex flex-col justify-center h-full px-4 mx-auto flex-center">
+		<header className="items-center h-16 bg-white shadow-lg dark:bg-gray-700 rounded-2xl m-4">
+			<div className="relative flex flex-col justify-center h-full px-4 mx-auto flex-center">
 				<div className="relative flex items-center w-full pl-1 lg:max-w-68 sm:pr-2 sm:ml-0">
-					<div className="container relative left-0 z-50 flex w-3/4 h-auto h-full">
+					<div className="container relative left-0 flex w-3/4 h-full">
+						<div className="relative flex items-center w-full h-full lg:w-8 mx-4 group">
+							<Link className="flex-shrink-0" to="/">
+								<img className="w-8 h-8" src="logo192.png" alt="Workflow" />
+							</Link>
+						</div>
 						<div className="relative flex items-center w-full h-full lg:w-64 group">
 							<div className="absolute z-50 flex items-center justify-center block w-auto h-10 p-3 pr-2 text-sm text-gray-500 uppercase cursor-pointer sm:hidden">
 								<svg
