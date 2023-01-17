@@ -1,17 +1,16 @@
 import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setAuthToken } from "../../redux/slices/authTokenSlice";
 import { setUserData } from "../../redux/slices/userDataSlice";
 import { GetUserDataFromAccessToken } from "../../services/user.service";
-import { API_URL } from "../../utils/utils";
+import axios from "../../utils/axios";
 
 export function LoginGoogleButton() {
 	const dispatch = useDispatch();
 
 	const loginSuccessHandler = (credentialResponse: CredentialResponse) => {
 		axios
-			.post(API_URL + "/auth", {
+			.post("/auth", {
 				credential: credentialResponse.credential
 			})
 			.then(async (result) => {
