@@ -78,9 +78,10 @@ export function EditProfileDialog() {
 												alt="profile"
 												src={userData?.picture}
 												className="mx-auto object-cover rounded-full h-16 w-16 "
+												referrerPolicy="no-referrer"
 											/>
 										</Link>
-										<h1 className="text-gray-600">{userData?.name}</h1>
+										<span className="text-gray-600">{userData?.name}</span>
 									</Dialog.Title>
 									<div className="shadow-md">
 										<div className="space-y-6 bg-white border-t-2 border-indigo-400 rounded-lg">

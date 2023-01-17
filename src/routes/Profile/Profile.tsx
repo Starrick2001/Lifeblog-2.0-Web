@@ -19,6 +19,7 @@ export function Profile() {
 							alt="profile"
 							src={userData?.picture}
 							className="mx-auto object-cover rounded-full h-16 w-16  border-2 border-white dark:border-gray-800"
+							referrerPolicy="no-referrer"
 						/>
 					</button>
 					<p className="mt-2 text-xl font-medium text-gray-800 dark:text-white">

@@ -3,7 +3,7 @@ import { API_URL, IUser } from "../utils/utils";
 
 export async function GetUserDataFromAccessToken(): Promise<IUser | undefined> {
 	try {
-		return (await axios.get<IUser>(`${API_URL}/auth`)).data;
+		return (await axios.get<IUser>(`/auth`)).data;
 	} catch (err) {
 		console.log(err);
 	}

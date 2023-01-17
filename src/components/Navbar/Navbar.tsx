@@ -10,7 +10,7 @@ import { LoginGoogleButton } from "../LoginGoogleButton/LoginGoogleButton";
 
 export function Navbar() {
 	const dispatch = useDispatch();
-	const userData = useSelector((state: RootState) => state.userData.userData);
+	const { userData } = useSelector((state: RootState) => state.userData);
 
 	const signoutHandler = () => {
 		dispatch(setAuthToken(undefined));
@@ -63,13 +63,12 @@ export function Navbar() {
 							<Menu as="div" className="relative inline-block text-left">
 								<div>
 									<Menu.Button>
-										<button className="relative block">
-											<img
-												alt="profil"
-												src={userData.picture}
-												className="mx-auto object-cover rounded-full h-10 w-10 "
-											/>
-										</button>
+										<img
+											alt="profil"
+											src={userData.picture}
+											className="mx-auto object-cover rounded-full h-10 w-10 "
+											referrerPolicy="no-referrer"
+										/>
 									</Menu.Button>
 								</div>
 
