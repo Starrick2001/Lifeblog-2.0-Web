@@ -1,7 +1,7 @@
 import axios from "../utils/axios";
 import { API_URL, IUser } from "../utils/utils";
 
-export async function GetUserDataFromAccessToken(): Promise<IUser | undefined> {
+export async function getUserDataFromAccessToken(): Promise<IUser | undefined> {
 	try {
 		return (await axios.get<IUser>(`/auth`)).data;
 	} catch (err) {
@@ -9,7 +9,7 @@ export async function GetUserDataFromAccessToken(): Promise<IUser | undefined> {
 	}
 }
 
-export async function UpdateUserData(
+export async function updateUserData(
 	id: string,
 	familyName: string,
 	givenName: string,
