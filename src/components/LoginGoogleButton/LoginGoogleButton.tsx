@@ -2,7 +2,7 @@ import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import { useDispatch } from "react-redux";
 import { setAuthToken } from "../../redux/slices/authTokenSlice";
 import { setUserData } from "../../redux/slices/userDataSlice";
-import { GetUserDataFromAccessToken } from "../../services/user.service";
+import { getUserDataFromAccessToken } from "../../services/user.service";
 import axios from "../../utils/axios";
 
 export function LoginGoogleButton() {
@@ -15,7 +15,7 @@ export function LoginGoogleButton() {
 			})
 			.then(async (result) => {
 				dispatch(setAuthToken(result.data.accessToken));
-				dispatch(setUserData(await GetUserDataFromAccessToken()));
+				dispatch(setUserData(await getUserDataFromAccessToken()));
 			});
 	};
 
